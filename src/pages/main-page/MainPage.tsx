@@ -1,46 +1,24 @@
 import { Center, Text } from '@chakra-ui/react'
 import { useEffect, useState } from 'react'
 
-const KEY = import.meta.env.VITE_APP_KEY_GEN_API;
+import api from '../../api';
 
 const MainPage = () => {
-    const [statusRequest, setStatusRequest] = useState<{request_id: string} | null | undefined>()
-    const [textMessage, setTextMessage] = useState<string | null>()
+    const [idRequest, setIdRequest] = useState<{request_id: string} | null | undefined>()
     const checkTask = () => {
-        fetch("https://api.gen-api.ru/api/v1/networks/chat-gpt-3", { method: "POST",
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json',
-                'Authorization': `Bearer ${KEY}`
-            },
-            body: JSON.stringify({messages: [{role: "system", content: 'сгенерируй любую интересную шутку'}], response_format: "{\"type\":\"text\"}"})
-          })
-        .then(response => response.json())
-        .then(data => setStatusRequest(data))
-        .catch(error => console.error("Ошибка:", error));
+       api.setTask({content: 'сгенерируй любую интересную шутку'}).then((data) => setIdRequest(data?.data.request_id))
     }
     useEffect(() => {
         setTimeout(() => {
-            if(statusRequest?.request_id) {
-                fetch(`https://api.gen-api.ru/api/v1/request/get/${statusRequest?.request_id}`, {
-                    method: "GET",
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Accept': 'application/json',
-                        'Authorization': `Bearer ${KEY}`
-                    },
-                  }).then(response => response.json()).then((data) => {
-                    if(data.status === 'success') {
-                        setTextMessage(data.result[0])
-                    }
-                  })
+            if(idRequest) {
+              api.checkTask({id: String(idRequest)})
             } 
-        }, 4000)
-    }, [statusRequest])
+        }, 10000)
+    }, [idRequest])
 
   return (
     <Center bg='black' h='100vh' color='white'>
-        <Text zIndex={99} maxWidth={'60vw'} textAlign={'right'} onClick={checkTask} fontSize='3vw'>{textMessage || 'Тапни ка бы я подумал'}</Text>
+        <Text zIndex={99} maxWidth={'60vw'} textAlign={'right'} onClick={checkTask} fontSize='3vw'>{'Тапни ка бы я подумал'}</Text>
     </Center>
   )
 }
