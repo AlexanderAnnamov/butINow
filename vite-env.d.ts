@@ -1,5 +1,5 @@
 interface ImportMetaEnv {
-    readonly KEY_GEN_API: string;   
+    readonly VITE_APP_KEY_GEN_API: string;   
   }
   
   interface ImportMeta {
