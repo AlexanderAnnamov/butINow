@@ -8,9 +8,8 @@ import { Button,
          DrawerOverlay,
          } from '@chakra-ui/react';
 import { HamburgerIcon, ChatIcon, SettingsIcon, InfoOutlineIcon } from '@chakra-ui/icons'
-import { Link as ReactRouterLink } from 'react-router-dom'
+import { Link as ReactRouterLink, Outlet } from 'react-router-dom'
 import { Link as ChakraLink } from '@chakra-ui/react'
-import { Link, Outlet } from 'react-router-dom'
 interface ILayout {
     isOpen: boolean;
     onClose: () => void
@@ -36,7 +35,7 @@ const Layout: React.FC<ILayout> = ({isOpen, onClose, onOpen}) => {
           <ChakraLink as={ReactRouterLink} to='/'><SettingsIcon marginRight={2}/>Параметры</ChakraLink>
           <ChakraLink as={ReactRouterLink} to='/'><InfoOutlineIcon marginRight={2}/>О приложении</ChakraLink>
           </DrawerBody>
-          <DrawerFooter>
+           <DrawerFooter>
           </DrawerFooter>
         </DrawerContent>
       </Drawer>
