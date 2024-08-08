@@ -16,7 +16,7 @@ const neuroApi = axios.create({
 export async function setTask(params: ParamsSetTask) {
     try {
         const payload = await neuroApi.post('/api/v1/networks/chat-gpt-3', 
-            {messages: [{role: "system", content: params.content}], response_format: "{\"type\":\"text\"}"})
+            {messages: [{role: "system",  content: params.content}], response_format: "{\"type\":\"text\"}"})
         return payload; 
     } catch(error) {
         if(axios.isAxiosError(error)) {
