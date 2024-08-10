@@ -1,14 +1,12 @@
 import { Center, Text } from '@chakra-ui/react'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 import api from '../../api';
 import { useQuery } from '@tanstack/react-query';
 
 const MainPage = () => {
     const [idRequest, setIdRequest] = useState<{request_id: string} | null | undefined>()
-    const { isPending, error, data } = useQuery({
-      queryKey: ['repoData'],
-      queryFn: () =>
+    const { isPending, error, data } = useQuery({ queryKey: ['repoData'], queryFn: () =>
         api.setTask({content: 'сгенерируй любую интересную шутку'})
     })
     const checkTask = () => {
