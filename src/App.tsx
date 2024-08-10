@@ -3,6 +3,7 @@ import { Routes, Route } from 'react-router-dom';
 
 import MainPage from './pages/main-page/MainPage';
 import Layout from './components/layout/Layout';
+import ChatPage from './pages/chat-page/ChatPage';
 
 function App() {
   const { isOpen, onOpen, onClose } = useDisclosure()
@@ -10,6 +11,7 @@ function App() {
           <Routes>
             <Route path='/' element={<Layout isOpen={isOpen} onClose={onClose} onOpen={onOpen}/>}>
                 <Route path='/' element={ <MainPage/>} />
+                <Route path='/chat' element={ <ChatPage/>} />
             </Route>
           </Routes>
         )
